@@ -1,15 +1,18 @@
 //this needs to be a collection of modules? help
+//https://mongoosejs.com/docs/populate.html
+//USE POPULATE SOMEHOW
 
-/* const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let ItemModel = {};
+/*
+let ProjectModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const ItemSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
