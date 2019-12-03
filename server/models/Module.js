@@ -1,33 +1,29 @@
-//this needs to be a string, they're basically collections of strings?
-//type will determine what type of module it is, then itll display it somehow lol
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
 let ModuleModel = {};
-let ProjectModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-
 //module schema
 const ModuleSchema = new mongoose.Schema({
-  text: {
+  title: {
     type: String,
     required: true,
     trim: true,
     set: setName,
   },
-  type: {
-    type: String,
+  items: {
+    items: [String],
     required: true,
     trim: true,
   },
-  project: {
+  owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
-    ref: 'Project',
+    ref: 'Account',
   },
   createdData: {
     type: Date,
@@ -35,17 +31,9 @@ const ModuleSchema = new mongoose.Schema({
   },
 });
 
-//project schema ????
-const ProjectSchema = new mongoose.Schema({
-  modules: {
-    type: mongoose.Schema.ObjectID,
-    ref: 'Module'
-  }
-});
-
 ModuleSchema.statics.toAPI = (doc) => ({
-  text: doc.text,
-  type: doc.type
+  title: doc.title,
+  items: doc.items
 });
 
 ModuleSchema.statics.findByOwner = (ownerId, callback) => {
@@ -53,7 +41,7 @@ ModuleSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
   //populate?
-  return ModuleModel.find(search).select('text type').exec(callback);
+  return ModuleModel.find(search).select('title items').exec(callback);
 };
 
 ModuleSchema.statics.findByOwnerAndID = (ownerId, _id, callback) => {
@@ -62,11 +50,10 @@ ModuleSchema.statics.findByOwnerAndID = (ownerId, _id, callback) => {
     _id,
   };
   //populate??
-  return ModuleModel.find(search).select('text type').exec(callback);
+  return ModuleModel.find(search).select('title items').exec(callback);
 };
 
 ModuleModel = mongoose.model('Module', ModuleSchema);
-ProjectModel = mongoose.model('Project', projectSchema);
 
 
 module.exports.ModuleModel = ModuleModel;

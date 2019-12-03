@@ -1,7 +1,6 @@
 const handleLogin = (e) => {
     e.preventDefault();
 
-
     if ($('#user').val() == '' || $('#pass').val() == '') {
         handleError("username or password is empty >:(");
         return false;
