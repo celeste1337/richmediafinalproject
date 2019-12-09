@@ -1,0 +1,208 @@
+/* ok time for css now :) */
+
+/* resetti */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    background-color: #EEF4ED;
+    font-family: Helvetica, sans-serif;
+}
+
+/* NAV ! NOW WITH FLEXBOX ! */
+nav {
+    width: 100vw;
+    height: 8vh;
+    background-color: #0B2545;
+    display: flex;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 2vh;
+    color: white;
+    font-size: 1.3em;
+}
+
+.navlink a {
+    background-color: #13315C;
+    padding: 0.75vh;
+    border-radius: 3px;
+    color: #EEF4ED;
+    text-decoration: none;
+}
+
+.navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color: #134074;
+}
+
+/* le form has arrived */
+
+.itemForm {
+    height: 15vh;
+    width: 100vw;
+    background-color: #134074;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.itemForm label {
+    font-size: 1.2em;
+    color: #EEF4ED;
+    margin: 0 0.5rem 0 1.5rem;
+}
+
+.itemForm input[type="text"], .itemForm input[type="number"] {
+    height: 2rem;
+}
+
+.makeItemSubmit {
+    background-color: #EEF4ED;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    color: #0B2545;
+    text-decoration: none;
+    margin-left: 1vw;
+}
+
+.makeItemSubmit:hover {
+    transition: background-color 0.2s ease;
+    background-color: #0B2545;
+    color: #EEF4ED;
+}
+
+.mainForm {
+    display: flex;
+    font-size: 1.2em;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 25vh;
+}
+
+.mainForm input {
+    align-self: center;
+}
+
+.mainForm label {
+    font-size: 1.2em;
+}
+
+.formSubmit {
+    transition: background-color 0.4s ease;
+    font-size: 1em;
+    background-color: #0B2545;
+    border-radius: 5px;
+    border: none;
+    margin-top: 1vh;
+    padding: 3px 0px;
+    color: #EEF4ED;
+    text-decoration: none;
+    width: 200px;
+    align-self: center;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+    color: white;
+}
+
+.formSubmit:hover {
+    transition: background-color 0.4s ease;
+    background-color: #134074;
+}
+
+#user, #pass, #pass2, #oldPass {
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border: 1px solid darkgrey;
+    border-radius: 6px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+    border: 1px solid #8DA9C4;
+}
+
+/* error msg */
+
+#itemMessage {
+    display:none;
+    top: 250px;
+    width: 250px;
+    height: 650px;
+    position: absolute;
+    z-index: 200;
+    right: 0px;
+    overflow: hidden;
+}
+
+#itemMessage h3 {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+
+#speech {
+    height: 120px;
+    width: 250px;
+    z-index:300;
+}
+
+#errorMessage {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: red;
+    font-style: italic;
+}
+
+.itemList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item {
+    border: 1px solid #8DA9C4;
+    border-radius: 4px;
+    background-color: #EEF4ED;
+    padding: 10px;
+    min-height:60px;
+    margin: 5px;
+}
+
+.item:hover {
+    transition: background-color 0.2s ease;
+    background-color: #8DA9C4;
+    color: #EEF4ED;
+}
+
+.item h3 {
+    font-weight: normal;
+    color: #0B2545;
+    margin:5px;
+}
+
+h3.emptyDomo {
+    width: 400px;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 18px;
+}
+
+.item img{
+    max-width: 300px;
+    max-height: 300px;
+}
