@@ -23,11 +23,12 @@ mongoose.connect(dbURL, (err) => {
 });
 
 let redisURL = {
-  hostname: 'redis-10440.c10.us-east-1-3.ec2.cloud.redislabs.com',
-  port: 10440,
+  hostname: 'redis-16632.c90.us-east-1-3.ec2.cloud.redislabs.com',
+  port: 16632,
 };
 
-let redisPASS = 'qnXtVXTMeFq42kkHKP4UHN5UNLO8BoQ6';
+let redisPASS = 'QOcR81Qg6T1NB2L8rDoVUAjetm66vkeo';
+//QOcR81Qg6T1NB2L8rDoVUAjetm66vkeo
 
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
@@ -51,7 +52,7 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'stan loona',
+  secret: 'doritos more like',
   resave: true,
   saveUninitialized: true,
   cookie: {

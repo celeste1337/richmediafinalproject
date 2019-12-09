@@ -13,9 +13,9 @@ const makerPage = (req, res) => {
 };
 
 const makeItem = (req, res) => {
-  //console.log(req.body);
+  console.log(req.body);
   if (!req.body.name || !req.body.cost || !req.body.itemUrl || !req.body.wears) {
-    return res.status(400).json({ error: 'name, cost, wears & imageURL are required' });
+    return res.status(400).json({ error: 'Name, cost, wears & imageURL are required' });
   }
 
   const itemData = {
@@ -23,6 +23,7 @@ const makeItem = (req, res) => {
     cost: req.body.cost,
     imageUrl: req.body.itemUrl,
     wears: req.body.wears,
+    type: req.body.type,
     owner: req.session.account._id,
   };
 
@@ -44,7 +45,7 @@ const makeItem = (req, res) => {
   return itemPromise;
 };
 
-//update ze itemme
+// update ze itemme
 const updateItem = (request, response) => {
   const req = request;
   const res = response;
@@ -63,6 +64,7 @@ const updateItem = (request, response) => {
       updatedDoc.cost = req.body.cost;
       updatedDoc.imageUrl = req.body.itemUrl;
       updatedDoc.wears = req.body.wears;
+      updatedDoc.type = req.body.type;
 
       const updateTaskPromise = updatedDoc.save();
 
@@ -78,7 +80,7 @@ const updateItem = (request, response) => {
     });
 };
 
-//KILL ITEM >:)
+// KILL ITEM >:)
 const deleteItem = (request, response) => {
   const req = request;
   const res = response;
@@ -86,14 +88,24 @@ const deleteItem = (request, response) => {
   return Item.ItemModel.deleteItem(
     req.session.account._id,
     req.body._id, (err) => {
-      if(err) {
+      if (err) {
         console.log(err);
-        return res.status(400).json({ error: 'Something went wrong ! '})
+        return res.status(400).json({ error: 'Something went wrong ! ' });
       }
 
-      return res.status(200).json({redirect: '/getItems'})
+      return res.status(200).json({ redirect: '/getItems' });
     });
 };
+
+const calculateCPW = (request, response) => {
+  const req = request;
+  const res = response;
+
+  //should find one and update when button is pressed Yep thanks.
+  //cost per wear
+  //yehuh
+
+}
 
 const getItems = (request, response) => {
   const req = request;
@@ -115,3 +127,4 @@ module.exports.getItems = getItems;
 module.exports.make = makeItem;
 module.exports.updateItem = updateItem;
 module.exports.deleteItem = deleteItem;
+module.exports.calculateCPW = calculateCPW;

@@ -20,7 +20,7 @@ const handleItemUpdate = (e) => {
     e.preventDefault();
 
     $('#itemMessage').animate({ width: 'hide' }, 350);
-   //$("#itemMessage").show('slow');
+    //$("#itemMessage").show('slow');
 
     if ($('#itemName').val() == '' || $('#itemCost').val() == '' || $('#itemUrl').val() == '' || $('#itemWears').val() == '') {
         handleError('all fields required');
@@ -39,7 +39,7 @@ const handlePasswordChange = (e) => {
     e.preventDefault();
 
     $('#itemMessage').animate({ width: 'hide' }, 350);
-   // $("#itemMessage").show('slow');
+    // $("#itemMessage").show('slow');
 
     if ($("#oldPass").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
         handleError("all fields required ya dweeb");
@@ -64,6 +64,19 @@ const ItemForm = (props) => {
             className="itemForm">
             <label htmlFor="name">Name: </label>
             <input id="itemName" type="text" name="name" placeholder="Item Name" />
+            <label htmlFor="cost">Cost: </label>
+            <input id="itemCost" type="number" name="cost" placeholder="Item Cost" />
+            <label htmlFor="itemUrl">Image URL: </label>
+            <input id="itemUrl" type="text" name="itemUrl" placeholder="Item URL" />
+            <label htmlFor="wears">Wears: </label>
+            <input id="itemWears" type="number" name="wears" placeholder="Number of Wears" />
+            <select id="itemType" name="type">
+                <option value="Top">Top</option>
+                <option value="Bottom">Bottom</option>
+                <option value="Outerwear">Outerwear</option>
+                <option value="Accessory">Accessory</option>
+                <option value="Shoe">Shoe</option>
+            </select>
             <input type="hidden" name="_csrf" value={props.csrf} />
             <input className="makeItemSubmit" type="submit" value="Add" />
         </form>
@@ -103,7 +116,7 @@ const ItemList = function (props) {
     if (props.items.length === 0) {
         return (
             <div className="itemList">
-                <h3 className="emptyItem">No Items yet</h3>
+                <h3 className="emptyItem">No items yet</h3>
             </div>
         )
     }
@@ -117,6 +130,7 @@ const ItemList = function (props) {
                 <h3 className="itemName">Name: {item.name}</h3>
                 <h3 className="itemCost">Cost: {item.cost}</h3>
                 <h3 className="itemWears">Wears: {item.wears}</h3>
+                <h3 className="itemType">Type: {item.type}</h3>
             </div>
         );
     });
@@ -136,6 +150,7 @@ const Item = function (props) {
             <h3 className="itemName">Name: {props.item.name}</h3>
             <h3 className="itemCost">Cost: {props.item.cost}</h3>
             <h3 className="itemWears">Wears: {props.item.wears}</h3>
+            <h3 className="itemType">Type: {props.item.type}</h3>
 
             <form id="itemForm"
                 onSubmit={handleItemUpdate}
@@ -151,10 +166,17 @@ const Item = function (props) {
                 <input id="itemUrl" type="text" name="itemUrl" placeholder="Item URL" defaultValue={props.item.imageUrl} />
                 <label htmlFor="wears">Wears: </label>
                 <input id="itemWears" type="number" name="wears" placeholder="Number of Wears" defaultValue={props.item.wears} />
+                <select id="itemType" name="type">
+                    <option value="Top">Top</option>
+                    <option value="Bottom">Bottom</option>
+                    <option value="Outerwear">Outerwear</option>
+                    <option value="Accessory">Accessory</option>
+                    <option value="Shoe">Shoe</option>
+                </select>
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input type="hidden" name="_id" value={props.item._id} />
                 <input className="makeItemSubmit" type="submit" value="Update" />
-                
+
             </form>
         </div>
     );

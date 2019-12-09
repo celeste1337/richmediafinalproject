@@ -4,6 +4,7 @@ var handleItem = function handleItem(e) {
     e.preventDefault();
 
     $('#itemMessage').animate({ width: 'hide' }, 350);
+    //$("#itemMessage").show('slow');
 
     if ($('#itemName').val() == '' || $('#itemCost').val() == '' || $('#itemUrl').val() == '' || $('#itemWears').val() == '') {
         handleError('all fields required');
@@ -21,6 +22,7 @@ var handleItemUpdate = function handleItemUpdate(e) {
     e.preventDefault();
 
     $('#itemMessage').animate({ width: 'hide' }, 350);
+    //$("#itemMessage").show('slow');
 
     if ($('#itemName').val() == '' || $('#itemCost').val() == '' || $('#itemUrl').val() == '' || $('#itemWears').val() == '') {
         handleError('all fields required');
@@ -38,7 +40,8 @@ var handleItemUpdate = function handleItemUpdate(e) {
 var handlePasswordChange = function handlePasswordChange(e) {
     e.preventDefault();
 
-    $("#domoMessage").animate({ width: 'hide' }, 350);
+    $('#itemMessage').animate({ width: 'hide' }, 350);
+    // $("#itemMessage").show('slow');
 
     if ($("#oldPass").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
         handleError("all fields required ya dweeb");
@@ -67,7 +70,7 @@ var ItemForm = function ItemForm(props) {
             { htmlFor: 'name' },
             'Name: '
         ),
-        React.createElement('input', { id: 'itemName', type: 'text', name: 'name', placholder: 'Item Name' }),
+        React.createElement('input', { id: 'itemName', type: 'text', name: 'name', placeholder: 'Item Name' }),
         React.createElement(
             'label',
             { htmlFor: 'cost' },
@@ -86,6 +89,35 @@ var ItemForm = function ItemForm(props) {
             'Wears: '
         ),
         React.createElement('input', { id: 'itemWears', type: 'number', name: 'wears', placeholder: 'Number of Wears' }),
+        React.createElement(
+            'select',
+            { id: 'itemType', name: 'type' },
+            React.createElement(
+                'option',
+                { value: 'Top' },
+                'Top'
+            ),
+            React.createElement(
+                'option',
+                { value: 'Bottom' },
+                'Bottom'
+            ),
+            React.createElement(
+                'option',
+                { value: 'Outerwear' },
+                'Outerwear'
+            ),
+            React.createElement(
+                'option',
+                { value: 'Accessory' },
+                'Accessory'
+            ),
+            React.createElement(
+                'option',
+                { value: 'Shoe' },
+                'Shoe'
+            )
+        ),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
         React.createElement('input', { className: 'makeItemSubmit', type: 'submit', value: 'Add' })
     );
@@ -151,7 +183,7 @@ var ItemList = function ItemList(props) {
             React.createElement(
                 'h3',
                 { className: 'emptyItem' },
-                'No Items yet'
+                'No items yet'
             )
         );
     }
@@ -181,6 +213,12 @@ var ItemList = function ItemList(props) {
                 { className: 'itemWears' },
                 'Wears: ',
                 item.wears
+            ),
+            React.createElement(
+                'h3',
+                { className: 'itemType' },
+                'Type: ',
+                item.type
             )
         );
     });
@@ -216,6 +254,12 @@ var Item = function Item(props) {
             props.item.wears
         ),
         React.createElement(
+            'h3',
+            { className: 'itemType' },
+            'Type: ',
+            props.item.type
+        ),
+        React.createElement(
             'form',
             { id: 'itemForm',
                 onSubmit: handleItemUpdate,
@@ -247,9 +291,38 @@ var Item = function Item(props) {
                 'Wears: '
             ),
             React.createElement('input', { id: 'itemWears', type: 'number', name: 'wears', placeholder: 'Number of Wears', defaultValue: props.item.wears }),
+            React.createElement(
+                'select',
+                { id: 'itemType', name: 'type' },
+                React.createElement(
+                    'option',
+                    { value: 'Top' },
+                    'Top'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Bottom' },
+                    'Bottom'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Outerwear' },
+                    'Outerwear'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Accessory' },
+                    'Accessory'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Shoe' },
+                    'Shoe'
+                )
+            ),
             React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
             React.createElement('input', { type: 'hidden', name: '_id', value: props.item._id }),
-            React.createElement('input', { className: 'makeItemSubmit', type: 'submit', value: 'Update Item' })
+            React.createElement('input', { className: 'makeItemSubmit', type: 'submit', value: 'Update' })
         )
     );
 };
@@ -289,15 +362,15 @@ var getToken = function getToken() {
 $(document).ready(function () {
     getToken();
 });
-'use strict';
+"use strict";
 
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
-    $('#domoMessage').animate({ width: 'toggle' }, 350);
+    //$('#domoMessage').animate({width:'toggle'},350);
 };
 
 var redirect = function redirect(response) {
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    //$('#domoMessage').animate({width:'hide'}, 350);
     window.location = response.redirect;
 };
 

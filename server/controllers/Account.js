@@ -20,12 +20,12 @@ const login = (request, response) => {
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'all fields required' });
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'wrong username or password stinky' });
+      return res.status(401).json({ error: 'Something is just not right!!' });
     }
     req.session.account = Account.AccountModel.toAPI(account);
 
@@ -42,11 +42,11 @@ const signup = (request, response) => {
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'all fields required ya dweeb' });
+    return res.status(400).json({ error: 'All fields required!' });
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'passwords dont match!!! >:(' });
+    return res.status(400).json({ error: 'Passwords don\'t match.' });
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
@@ -69,10 +69,10 @@ const signup = (request, response) => {
       console.log(err);
 
       if (err.code === 11000) {
-        return res.status(400).json({ error: 'username already in use dummyyy.' });
+        return res.status(400).json({ error: 'Username already in use.' });
       }
 
-      return res.status(400).json({ error: 'an error occurred oopsie' });
+      return res.status(400).json({ error: 'An error occurred.' });
     });
   });
 };
@@ -109,20 +109,20 @@ const passwordChange = (request, response) => {
               console.log(err2);
               return res.status(400).json({ error: 'an error occurred oopsie' });
             }
-  
-            let updatedDoc = doc;
+
+            const updatedDoc = doc;
             updatedDoc.salt = salt;
             updatedDoc.password = hash;
-  
+
             const savePromise = updatedDoc.save();
-  
+
             savePromise.then(() => res.json({ redirect: '/maker' }));
-  
+
             savePromise.catch((err3) => {
               console.log(err3);
               return res.status(400).json({ error: 'an error occurred oopsie' });
             });
-  
+
             return savePromise;
           }));
     }

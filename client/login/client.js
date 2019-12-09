@@ -1,10 +1,10 @@
 const handleLogin = (e) => {
     e.preventDefault();
 
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    //$('#domoMessage').animate({ width: 'hide' }, 350);
 
     if ($('#user').val() == '' || $('#pass').val() == '') {
-        handleError("username or password is empty >:(");
+        handleError("Both fields are required.");
         return false;
     }
 
@@ -18,15 +18,15 @@ const handleLogin = (e) => {
 const handleSignup = (e) => {
     e.preventDefault();
 
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    //$('#domoMessage').animate({ width: 'hide' }, 350);
 
     if ($('#user').val() == '' || $('#pass').val() == '' || $('#pass2').val() == '') {
-        handleError("all fields required DUM");
+        handleError("All fields are required.");
         return false;
     }
 
     if ($('#pass').val() !== $('#pass2').val()) {
-        handleError("passwords dont MATCH!!!!!!!!!!!!");
+        handleError("Passwords don't match.");
         return false;
     }
 

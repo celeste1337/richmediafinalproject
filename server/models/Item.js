@@ -27,7 +27,11 @@ const ItemSchema = new mongoose.Schema({
   },
   wears: {
     type: Number,
-    min: 0,
+    min: 1,
+  },
+  type: {
+    type: String,
+    default: 'Top'
   },
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -45,13 +49,14 @@ ItemSchema.statics.toAPI = (doc) => ({
   cost: doc.cost,
   imageUrl: doc.imageUrl,
   wears: doc.wears,
+  type: doc.type,
 });
 
 ItemSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return ItemModel.find(search).select('name cost imageUrl wears').exec(callback);
+  return ItemModel.find(search).select('name cost imageUrl wears type').exec(callback);
 };
 
 ItemSchema.statics.findByOwnerAndID = (ownerId, _id, callback) => {
@@ -60,7 +65,7 @@ ItemSchema.statics.findByOwnerAndID = (ownerId, _id, callback) => {
     _id,
   };
 
-  return ItemModel.find(search).select('name cost imageUrl wears').exec(callback);
+  return ItemModel.find(search).select('name cost imageUrl wears type').exec(callback);
 };
 
 ItemSchema.statics.deleteItem = (ownerId, _id, callback) => {
@@ -70,7 +75,7 @@ ItemSchema.statics.deleteItem = (ownerId, _id, callback) => {
   };
 
   return ItemModel.deleteOne(search).exec(callback);
-}
+};
 
 ItemModel = mongoose.model('Item', ItemSchema);
 
