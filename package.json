@@ -13,7 +13,7 @@
     "build": "npm run buildLoginBundle && npm run buildAppBundle",
     "watchLoginBundle": "babel --watch./client/login ./client/helper --presets react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets react --out-file ./hosted/bundle.js",
-    "nodemon": "nodemon --watch ./server --watch ./client",
+    "nodemon": "nodemon --watch ./hosted/style.css",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\""
@@ -34,6 +34,7 @@
     "csurf": "^1.8.3",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "express-rate-limit": "^5.0.0",
     "express-session": "^1.13.0",
     "helmet": "^1.3.0",
     "mongoose": "^4.4.6",

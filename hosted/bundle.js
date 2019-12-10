@@ -217,9 +217,93 @@ var ItemList = function ItemList(props) {
             React.createElement(
                 'h3',
                 { className: 'itemType' },
-                'Type: ',
                 item.type
             )
+        );
+    });
+
+    return React.createElement(
+        'div',
+        { className: 'itemList' },
+        itemNodes
+    );
+};
+
+var DeleteItem = function DeleteItem(props) {
+    var onItemDelete = function onItemDelete() {
+        sendAjax('POST', '/deleteItem', '_id=' + props.item._id + '&_csrf=' + props.csrf, redirect);
+    };
+
+    return React.createElement(
+        'div',
+        { key: props.item._id, className: 'deleteItem' },
+        React.createElement(
+            'h2',
+            null,
+            'Are you sure you want to delete this item?'
+        ),
+        React.createElement('img', { src: props.item.imageUrl, alt: 'item image', className: 'itemImage' }),
+        React.createElement(
+            'h3',
+            { className: 'itemName' },
+            'Name: ',
+            props.item.name
+        ),
+        React.createElement(
+            'h3',
+            { className: 'itemCost' },
+            'Cost: ',
+            props.item.cost
+        ),
+        React.createElement(
+            'h3',
+            { className: 'itemWears' },
+            'Wears: ',
+            props.item.wears
+        ),
+        React.createElement(
+            'h3',
+            { className: 'itemType' },
+            props.item.type
+        ),
+        React.createElement(
+            'button',
+            { className: 'makeItemSubmit', type: 'button', onClick: function onClick() {
+                    onItemDelete();
+                } },
+            'Yes'
+        ),
+        React.createElement(
+            'button',
+            { className: 'makeItemSubmit', type: 'button', onClick: function onClick() {
+                    ReactDOM.render(React.createElement(Item, { csrf: props.csrf, item: props.item }), document.querySelector('#items'));
+                } },
+            'No'
+        )
+    );
+};
+
+var Gallery = function Gallery(props) {
+    if (props.items.length === 0) {
+        return React.createElement(
+            'div',
+            { className: 'itemList' },
+            React.createElement(
+                'h3',
+                { className: 'emptyItem' },
+                'No items yet'
+            )
+        );
+    }
+
+    //img src should be pulled frm DB
+    var itemNodes = props.items.map(function (item) {
+        return React.createElement(
+            'div',
+            { key: item._id, className: 'item', onClick: function onClick() {
+                    ReactDOM.render(React.createElement(Item, { csrf: props.csrf, item: item }), document.querySelector('#items'));
+                } },
+            React.createElement('img', { src: item.imageUrl, alt: 'item image', className: 'itemImage' })
         );
     });
 
@@ -256,7 +340,6 @@ var Item = function Item(props) {
         React.createElement(
             'h3',
             { className: 'itemType' },
-            'Type: ',
             props.item.type
         ),
         React.createElement(
@@ -322,7 +405,14 @@ var Item = function Item(props) {
             ),
             React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
             React.createElement('input', { type: 'hidden', name: '_id', value: props.item._id }),
-            React.createElement('input', { className: 'makeItemSubmit', type: 'submit', value: 'Update' })
+            React.createElement('input', { className: 'makeItemSubmit', type: 'submit', value: 'Update' }),
+            React.createElement(
+                'button',
+                { className: 'makeItemSubmit', type: 'button', onClick: function onClick() {
+                        ReactDOM.render(React.createElement(DeleteItem, { csrf: props.csrf, item: props.item }), document.querySelector('#items'));
+                    } },
+                'Delete'
+            )
         )
     );
 };
@@ -343,6 +433,15 @@ var setup = function setup(csrf) {
     document.querySelector("#addItem").addEventListener("click", function (e) {
         e.preventDefault();
         ReactDOM.render(React.createElement(ItemForm, { csrf: csrf }), document.querySelector('#items'));
+        return false;
+    });
+
+    document.querySelector("#gallery").addEventListener("click", function (e) {
+        e.preventDefault();
+        sendAjax('GET', '/getItems', null, function (data) {
+            ReactDOM.render(React.createElement(Gallery, { items: data.items, csrf: csrf }), document.querySelector('#items'));
+        });
+
         return false;
     });
 

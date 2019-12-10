@@ -1,5 +1,4 @@
 /* ok time for css now :) */
-
 /* resetti */
 * {
     margin: 0;
@@ -10,15 +9,16 @@ html, body {
     height: 100vh;
     width: 100vw;
     background-color: #EEF4ED;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 /* NAV ! NOW WITH FLEXBOX ! */
 nav {
     width: 100vw;
     height: 8vh;
-    background-color: #0B2545;
+    background-color: #0F0E0E;
     display: flex;
+    font-family: 'Playfair Display', serif;
 }
 
 nav:nth-child(1) {
@@ -32,37 +32,45 @@ nav:nth-child(1) {
 }
 
 .navlink a {
-    background-color: #13315C;
-    padding: 0.75vh;
+    background-color: rgb(26, 24, 24);
+    padding: 0.5vw 1.5vw;
     border-radius: 3px;
     color: #EEF4ED;
     text-decoration: none;
 }
 
+
 .navlink a:hover {
     transition: background-color 0.8s ease;
-    background-color: #134074;
+    background-color: #2D3319;
 }
 
 /* le form has arrived */
 
 .itemForm {
     height: 15vh;
-    width: 100vw;
-    background-color: #134074;
+    width: auto;
+    background-color: #2D3319;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     padding: 5px 0;
+    border-radius: 0px 0px 3px 3px;
 }
 
 .itemForm label {
     font-size: 1.2em;
     color: #EEF4ED;
     margin: 0 0.5rem 0 1.5rem;
+    font-family: 'Playfair Display', serif;
 }
 
-.itemForm input[type="text"], .itemForm input[type="number"] {
+.itemForm select {
+    margin: 0 0.5rem 0 1.5rem;
+    color: #0F0E0E;
+}
+
+.itemForm input[type="text"], .itemForm input[type="number"] , .itemForm select{
     height: 2rem;
 }
 
@@ -71,14 +79,14 @@ nav:nth-child(1) {
     padding: 10px;
     border: none;
     border-radius: 15px;
-    color: #0B2545;
+    color: #5B2333;
     text-decoration: none;
     margin-left: 1vw;
 }
 
 .makeItemSubmit:hover {
     transition: background-color 0.2s ease;
-    background-color: #0B2545;
+    background-color: #5B2333;
     color: #EEF4ED;
 }
 
@@ -97,12 +105,13 @@ nav:nth-child(1) {
 
 .mainForm label {
     font-size: 1.2em;
+    font-family: 'Playfair Display', serif;
 }
 
 .formSubmit {
     transition: background-color 0.4s ease;
     font-size: 1em;
-    background-color: #0B2545;
+    background-color: #2D3319;
     border-radius: 5px;
     border: none;
     margin-top: 1vh;
@@ -119,7 +128,7 @@ nav:nth-child(1) {
 
 .formSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #134074;
+    background-color: #5B2333;
 }
 
 #user, #pass, #pass2, #oldPass {
@@ -174,9 +183,9 @@ nav:nth-child(1) {
 }
 
 .item {
-    border: 1px solid #8DA9C4;
+    border: 1px solid #D1D1D1;
     border-radius: 4px;
-    background-color: #EEF4ED;
+    background-color: #F5F5F5;
     padding: 10px;
     min-height:60px;
     margin: 5px;
@@ -184,25 +193,40 @@ nav:nth-child(1) {
 
 .item:hover {
     transition: background-color 0.2s ease;
-    background-color: #8DA9C4;
-    color: #EEF4ED;
+    background-color: #D1D1D1;
+    color: #F5F5F5;
+    cursor: pointer;
 }
 
 .item h3 {
     font-weight: normal;
-    color: #0B2545;
+    color: #5B2333;
     margin:5px;
 }
 
-h3.emptyDomo {
-    width: 400px;
-    font-size: 1.5em;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 18px;
+.itemType {
+    border: 0.5px lightgrey solid;
+    padding: 5px;
+    background-color: #F5F5F5;
+    border-radius: 3px;
+    width: auto;
+}
+
+.itemType:hover {
+    background-color: #2D3319;
+    color: #F5F5F5;
+    cursor: default;
 }
 
 .item img{
     max-width: 300px;
     max-height: 300px;
+}
+
+#notFound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 40vh 0;
 }

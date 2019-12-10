@@ -24,6 +24,7 @@ const ItemSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    default: 'https://perdidokeylive.com/wp-content/uploads/2019/04/possum-1.jpg'
   },
   wears: {
     type: Number,

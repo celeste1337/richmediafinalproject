@@ -93,7 +93,7 @@ const deleteItem = (request, response) => {
         return res.status(400).json({ error: 'Something went wrong ! ' });
       }
 
-      return res.status(200).json({ redirect: '/getItems' });
+      return res.status(200).json({ redirect: '/maker' });
     });
 };
 

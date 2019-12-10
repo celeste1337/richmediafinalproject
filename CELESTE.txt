@@ -1,0 +1,9 @@
+https://fonts.google.com/specimen/Nunito+Sans
+https://fonts.google.com/specimen/Playfair+Display
+
+colors:
+red: #5B2333
+lilac: #D1D1D1
+white: #F5F5F5
+green: #2D3319
+black: #0F0E0E

@@ -10,6 +10,7 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
+const rateLimit = require('express-rate-limit');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -71,8 +72,22 @@ app.use((err, req, res, next) => {
   return false;
 });
 
+//rate limiter to limit spam requests
+const apiLimiter = rateLimit({
+  windowMs: 20 * 1000,
+  max: 1,
+  message: { error: 'Too many things!!!!!!!!!!!!!! stop.' },
+});
+app.use('/signup', apiLimiter);
+app.use('/passwordChange', apiLimiter);
 
 router(app);
+
+app.use((req, res) => {
+  res.status(404);
+  return res.render('notfound');
+});
+
 app.listen(port, (err) => {
   if (err) {
     throw err;

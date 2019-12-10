@@ -130,7 +130,51 @@ const ItemList = function (props) {
                 <h3 className="itemName">Name: {item.name}</h3>
                 <h3 className="itemCost">Cost: {item.cost}</h3>
                 <h3 className="itemWears">Wears: {item.wears}</h3>
-                <h3 className="itemType">Type: {item.type}</h3>
+                <h3 className="itemType">{item.type}</h3>
+            </div>
+        );
+    });
+
+    return (
+        <div className="itemList">
+            {itemNodes}
+        </div>
+    );
+};
+
+const DeleteItem = function (props) {
+    const onItemDelete = () => {
+        sendAjax('POST','/deleteItem', `_id=${props.item._id}&_csrf=${props.csrf}`, redirect);
+    };
+
+    return (
+        <div key={props.item._id} className="deleteItem">
+            <h2>Are you sure you want to delete this item?</h2>
+            <img src={props.item.imageUrl} alt="item image" className="itemImage" />
+            <h3 className="itemName">Name: {props.item.name}</h3>
+            <h3 className="itemCost">Cost: {props.item.cost}</h3>
+            <h3 className="itemWears">Wears: {props.item.wears}</h3>
+            <h3 className="itemType">{props.item.type}</h3>
+            <button className="makeItemSubmit" type="button" onClick={() => {onItemDelete();}}>Yes</button>
+            <button className="makeItemSubmit" type="button" onClick={() => { ReactDOM.render(<Item csrf={props.csrf} item={props.item} />, document.querySelector('#items')) }}>No</button>
+        </div>
+    );
+};
+
+const Gallery = function(props){
+    if (props.items.length === 0) {
+        return (
+            <div className="itemList">
+                <h3 className="emptyItem">No items yet</h3>
+            </div>
+        )
+    }
+
+    //img src should be pulled frm DB
+    const itemNodes = props.items.map(function (item) {
+        return (
+            <div key={item._id} className="item" onClick={() => { ReactDOM.render(<Item csrf={props.csrf} item={item} />, document.querySelector('#items')) }}>
+                <img src={item.imageUrl} alt="item image" className="itemImage" />
             </div>
         );
     });
@@ -150,7 +194,7 @@ const Item = function (props) {
             <h3 className="itemName">Name: {props.item.name}</h3>
             <h3 className="itemCost">Cost: {props.item.cost}</h3>
             <h3 className="itemWears">Wears: {props.item.wears}</h3>
-            <h3 className="itemType">Type: {props.item.type}</h3>
+            <h3 className="itemType">{props.item.type}</h3>
 
             <form id="itemForm"
                 onSubmit={handleItemUpdate}
@@ -176,6 +220,7 @@ const Item = function (props) {
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <input type="hidden" name="_id" value={props.item._id} />
                 <input className="makeItemSubmit" type="submit" value="Update" />
+                <button className="makeItemSubmit" type="button" onClick={() => {ReactDOM.render(<DeleteItem csrf={props.csrf} item={props.item} />, document.querySelector('#items')) }}>Delete</button>
 
             </form>
         </div>
@@ -204,6 +249,17 @@ const setup = function (csrf) {
         ReactDOM.render(
             <ItemForm csrf={csrf} />, document.querySelector('#items')
         );
+        return false;
+    });
+
+    document.querySelector("#gallery").addEventListener("click", (e) => {
+        e.preventDefault();
+        sendAjax('GET', '/getItems', null, (data) => {
+            ReactDOM.render(
+                <Gallery items={data.items} csrf={csrf} />, document.querySelector('#items')
+            );
+        });
+        
         return false;
     });
 
