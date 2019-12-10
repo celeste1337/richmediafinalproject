@@ -97,16 +97,6 @@ const deleteItem = (request, response) => {
     });
 };
 
-const calculateCPW = (request, response) => {
-  const req = request;
-  const res = response;
-
-  //should find one and update when button is pressed Yep thanks.
-  //cost per wear
-  //yehuh
-
-}
-
 const getItems = (request, response) => {
   const req = request;
   const res = response;
@@ -127,4 +117,3 @@ module.exports.getItems = getItems;
 module.exports.make = makeItem;
 module.exports.updateItem = updateItem;
 module.exports.deleteItem = deleteItem;
-module.exports.calculateCPW = calculateCPW;

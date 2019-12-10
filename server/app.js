@@ -29,7 +29,7 @@ let redisURL = {
 };
 
 let redisPASS = 'QOcR81Qg6T1NB2L8rDoVUAjetm66vkeo';
-//QOcR81Qg6T1NB2L8rDoVUAjetm66vkeo
+// QOcR81Qg6T1NB2L8rDoVUAjetm66vkeo
 
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
@@ -72,7 +72,7 @@ app.use((err, req, res, next) => {
   return false;
 });
 
-//rate limiter to limit spam requests
+// rate limiter to limit spam requests
 const apiLimiter = rateLimit({
   windowMs: 20 * 1000,
   max: 1,
